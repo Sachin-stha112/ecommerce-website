@@ -22,8 +22,11 @@ const Auth = () => {
             <div className="form-group">
               <label className='form-label' htmlFor='email'>Email</label>
               <input className='form-input' type='email' id='email'
-              {...register("email", {required : "Username is required"})}
+              {...register("email", {required : "Email is required"})}
               />
+              {errors.email && (
+                <span className='form-error'>{errors.email.message}</span>
+              )}
             </div> 
             <div className="form-group">
               <label className='form-label' htmlFor='password'>Password</label>
@@ -40,6 +43,9 @@ const Auth = () => {
                   }
                 })}
               />
+              {errors.password && (
+                <span className='form-error'>{errors.password.message}</span>
+              )}
             </div>
             <button type='submit' className='btn btn-primary btn-large'>{mode == "signup" ? "Sign Up": "Login"}</button>
           </form>
