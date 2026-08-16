@@ -2,12 +2,15 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const Auth = () => {
   const [mode, setMode] = useState("signup")
   const [error, setError] = useState(null)
   const {register, handleSubmit, formState:{errors}} = useForm();
   const {signUp, user, logout, login} = useAuth()
+  const navigate = useNavigate();
+
   function onSubmit(data)
   { 
     setError(null)
@@ -22,7 +25,7 @@ const Auth = () => {
     }
     if(result.success)
     {
-      alert("Welcome")
+      navigate("/");
     }
     else
     {
