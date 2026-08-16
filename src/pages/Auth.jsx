@@ -1,14 +1,22 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { useAuth } from '../context/AuthContext'
 
 const Auth = () => {
   const [mode, setMode] = useState("signup")
   const {register, handleSubmit, formState:{errors}} = useForm();
-
-  function onSubmit()
+  const {signUp, user, logout, login} = useAuth()
+  function onSubmit(data)
   {
-    alert("Signed Up")
+    if(mode === "signup")
+    {
+      signUp(data.email, data.password)
+    }
+    else 
+    {
+      login(data.email, data.password )
+    }
   }
 
   return (
