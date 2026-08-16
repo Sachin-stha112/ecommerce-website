@@ -48,5 +48,16 @@ export default function AuthProvider({children})
     localStorage.removeItem("currentUserEmail")
     setUser(null)
   }
+  return (
+    <AuthContext.Provider value={{signUp, user, logout, login}} >
+      {children}
+    </AuthContext.Provider>
+  )
 
+}
+// custom hook for useContext(AuthContext)
+export function useAuth()
+{
+  const context = useContext(AuthContext);
+  return context;
 }
