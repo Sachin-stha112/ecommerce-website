@@ -17,7 +17,7 @@ export default function AuthProvider({children})
 
     if (users.find((u) => u.email === email) )
     {
-      return {success: false, error: "Email alreadt exits"}
+      return {success: false, error: "Email already exists"}
     }
     const newUser = {email, password}
     users.push(newUser)

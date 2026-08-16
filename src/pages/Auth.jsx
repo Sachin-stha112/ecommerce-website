@@ -5,17 +5,28 @@ import { useAuth } from '../context/AuthContext'
 
 const Auth = () => {
   const [mode, setMode] = useState("signup")
+  const [error, setError] = useState(null)
   const {register, handleSubmit, formState:{errors}} = useForm();
   const {signUp, user, logout, login} = useAuth()
   function onSubmit(data)
-  {
+  { 
+    setError(null)
+    let result;
     if(mode === "signup")
     {
-      signUp(data.email, data.password)
+     result = signUp(data.email, data.password)
     }
     else 
     {
-      login(data.email, data.password )
+     result = login(data.email, data.password )
+    }
+    if(result.success)
+    {
+      alert("Welcome")
+    }
+    else
+    {
+      setError(result.error)
     }
   }
 
@@ -55,13 +66,16 @@ const Auth = () => {
                 <span className='form-error'>{errors.password.message}</span>
               )}
             </div>
+            {error && (
+              <p className='form-error'>{error}</p>
+            )}
             <button type='submit' className='btn btn-primary btn-large'>{mode == "signup" ? "Sign Up": "Login"}</button>
           </form>
           <div className="auth-switch">
             {mode == "signup" ?
-            (<p>Already have an account? <span onClick={()=> setMode("login")} className='auth-link'>Login</span>
+            (<p>Already have an account? <span onClick={()=> {setMode("login"); setError(null)}} className='auth-link'>Login</span>
             </p> ):
-            (<p>Don't have an account? <span className='auth-link' onClick={() => setMode("signup")}>Sign up</span>
+            (<p>Don't have an account? <span className='auth-link' onClick={() => {setMode("signup"); setError(null)}}>Sign up</span>
             </p>)
           }
           </div>
