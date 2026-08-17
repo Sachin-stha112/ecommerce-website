@@ -1,4 +1,3 @@
-import React from 'react'
 import { createContext, useState, useContext } from 'react'
 import { getProductById } from '../data/products'
 
@@ -6,21 +5,28 @@ const CartContext = createContext(null)
 
 export default function CartProvider({children})
 {
-  const [cartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState(
+    JSON.parse(localStorage.getItem("cart") || "[]")
+  )
+
+  function saveCart(items)
+  {
+    localStorage.setItem("cart", JSON.stringify(items))
+    setCartItems(items)
+  }
 
   function addToCart(productId)
   {
     const existing = cartItems.find((item) => item.id === productId);
     if(existing)
     {
-      const currentQuantity= existing.quantity
       const updatedCartItems = cartItems.map((item) => item.id === productId
-      ? {id: productId, quantity: currentQuantity + 1} : item )
-      setCartItems(updatedCartItems)
+      ? {id: productId, quantity: item.quantity + 1} : item )
+      saveCart(updatedCartItems)
     }
     else
     {
-      setCartItems([...cartItems, {id : productId, quantity : 1}])
+      saveCart([...cartItems, {id : productId, quantity : 1}])
     }
   }
 
@@ -35,21 +41,19 @@ export default function CartProvider({children})
   
   function removeFromCart (productId)
   {
-    setCartItems (cartItems.filter((item) => item.id !== productId))
-    // filter removes item whose id matches
+    const updated = cartItems.filter((item) => item.id !== productId)
+    saveCart(updated)
   }
   function updateQuantity(productId, quantity)
   { 
-
     if(quantity <= 0)
     {
       removeFromCart(productId)
       return
     }
-    setCartItems(
-      cartItems.map((item) => item.id === productId ?
-      {...item, quantity} : item)
-    )
+    const updated = cartItems.map((item) => item.id === productId ?
+    {...item, quantity} : item)
+    saveCart(updated)
   }
   function getCartTotal()
   {
@@ -62,7 +66,7 @@ export default function CartProvider({children})
   }
   function clearCart()
   {
-    setCartItems([])
+    saveCart([])
   }
   return (
     <CartContext.Provider value={{cartItems, addToCart, getCartItemsWithProducts, updateQuantity, removeFromCart, getCartTotal, clearCart}} >
@@ -71,7 +75,6 @@ export default function CartProvider({children})
   )
 
 }
-// custom hook for useContext(CartContext)
 export function useCart()
 {
   const context = useContext(CartContext);

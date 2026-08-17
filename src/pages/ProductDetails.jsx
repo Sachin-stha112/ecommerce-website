@@ -1,8 +1,8 @@
-import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getProductById } from '../data/products'
 import { useCart } from '../context/CartContext'
+import { getQuantityLabel } from '../utils/cart'
 
 const ProductDetails = () => {
     const {id} = useParams()
@@ -28,9 +28,7 @@ const ProductDetails = () => {
     return (<h1>Loading....</h1>)
   }
 
-  const productInCart = cartItems.find((item) => item.id === product.id);
-      const productQuantityLabel = productInCart ? `(${productInCart.quantity})`
-      : ""
+  const productQuantityLabel = getQuantityLabel(cartItems, product.id)
 
   return (
     <div className="page">

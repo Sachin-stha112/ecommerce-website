@@ -1,6 +1,5 @@
-import React from 'react'
 import { useCart } from '../context/CartContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const Checkout = () => {
   const {getCartItemsWithProducts, removeFromCart, updateQuantity, getCartTotal, clearCart} = useCart()
@@ -14,6 +13,20 @@ const Checkout = () => {
     clearCart()
     navigate("/")
   }
+
+  if(cartItems.length === 0)
+  {
+    return (
+      <div className="page">
+        <div className="container">
+          <h1 className='page-title'>Checkout</h1>
+          <p>Your cart is empty.</p>
+          <Link to="/" className="btn btn-primary">Continue Shopping</Link>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="page">
       <div className="container">
@@ -22,7 +35,7 @@ const Checkout = () => {
           <div className="checkout-items">
             <h2 className='checkout-section-title'>Order Summary</h2>
             {cartItems.map((item) => (
-              <div className="checkout-item">
+              <div className="checkout-item" key={item.id}>
                 <img src={item.product.image} alt={item.product.name} className='checkout-item-image'/>
                 <div className="checkout-item-details">
                 <h3 className='checkout-item-name'>{item.product.name}</h3>
