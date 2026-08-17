@@ -15,6 +15,7 @@ export default function CartProvider({children})
       const currentQuantity= existing.quantity
       const updatedCartItems = cartItems.map((item) => item.id === productId
       ? {id: productId, quantity: currentQuantity + 1} : item )
+      setCartItems(updatedCartItems)
     }
     else
     {
