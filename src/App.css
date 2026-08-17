@@ -509,13 +509,42 @@ body {
 
 @media (max-width: 768px) {
   .navbar-container {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: nowrap;
+    padding: 0 1rem;
+    gap: 0.5rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+
+  .brand-box {
+    padding: 3px 6px;
+  }
+
+  .brand-shop {
+    font-size: 0.9rem;
+  }
+
+  .brand-hub {
+    padding: 2px 4px;
+    font-size: 0.9rem;
   }
 
   .navbar-links {
-    width: 100%;
-    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .navbar-link {
+    font-size: 0.85rem;
+  }
+
+  .navbar-auth {
+    gap: 0.5rem;
+  }
+
+  .navbar-greeting {
+    font-size: 0.8rem;
   }
 
   .home-title {
