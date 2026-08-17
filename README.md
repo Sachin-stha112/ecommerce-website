@@ -1,16 +1,44 @@
-# React + Vite
+# ShopHub - E-Commerce Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-featured e-commerce web application built with React, featuring product browsing, shopping cart, user authentication, and checkout.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Product Catalog** - Browse products with images, prices, and descriptions
+- **Product Details** - View detailed product information on individual pages
+- **Shopping Cart** - Add/remove items, update quantities, view cart total
+- **Authentication** - Sign up and login with form validation using react-hook-form
+- **Checkout Page** - Review order summary with quantity controls and place order
+- **Persistent Navbar** - Dynamic navbar showing login/signup or user greeting with logout
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** - Frontend UI library
+- **Vite** - Build tool and dev server
+- **React Router** - Client-side routing
+- **React Hook Form** - Form handling and validation
+- **localStorage** - Data persistence for auth and cart
+- **Context API** - Global state management (AuthContext, CartContext)
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Project Structure
+
+```
+src/
+  components/   - Reusable UI components (Navbar, ProductCard)
+  context/      - Context providers (AuthContext, CartContext)
+  data/         - Product data
+  pages/        - Page components (Home, Auth, Checkout, ProductDetails)
+```
