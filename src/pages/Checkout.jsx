@@ -1,9 +1,19 @@
 import React from 'react'
 import { useCart } from '../context/CartContext'
+import { useNavigate } from 'react-router-dom'
 
 const Checkout = () => {
-  const {getCartItemsWithProducts, removeFromCart, updateQuantity} = useCart()
+  const {getCartItemsWithProducts, removeFromCart, updateQuantity, getCartTotal, clearCart} = useCart()
+  const total = getCartTotal()
   const cartItems = getCartItemsWithProducts()
+  const navigate = useNavigate()
+
+  function placeOrder()
+  {
+    alert("Order placed successfully!")
+    clearCart()
+    navigate("/")
+  }
   return (
     <div className="page">
       <div className="container">
@@ -47,6 +57,25 @@ const Checkout = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="checkout-summary">
+            <h2 className="checkout-section-title">Total</h2>
+            <div className="checkout-total">
+              <p className="checkout-total-label">Subtotal:</p>
+              <p className="checkout-total-value">${total.toFixed(2)}</p>
+            </div>
+            <div className="checkout-total">
+              <p className="checkout-total-label">Total:</p>
+              <p className="checkout-total-value checkout-total-final">
+                ${total.toFixed(2)}
+              </p>
+            </div>
+            <button
+              className="btn btn-primary btn-large btn-block"
+              onClick={placeOrder}
+            >
+              Place Order
+            </button>
           </div>
         </div>
       </div>
